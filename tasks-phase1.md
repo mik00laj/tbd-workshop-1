@@ -67,16 +67,105 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
 
     1. Add support for arbitrary machine types and worker nodes for a Dataproc cluster and JupyterLab instance
 
-    ***place the link to the modified file and inserted terraform code***
-    
-    3. Add support for preemptible/spot instances in a Dataproc cluster
+    Arbitraty machine types for a Dataproc cluster are already supported via the `machine_type` variable, so it was skipped.
 
-    ***place the link to the modified file and inserted terraform code***
+    ['modules/dataproc/variables.tf'](modules/dataproc/variables.tf)
+
+    ```
+    variable "worker_count" {
+      type        = number
+      default     = 2
+      description = "Number of worker nodes"
+    }
+    ```
+
+    ['modules/dataproc/main.tf'](modules/dataproc/main.tf)
+
+    ```
+    cluster_config {
+      ...
+      worker_config {
+        num_instances = var.worker_count
+        ...
+      }
+    }
+    ```
+
+    ['modules/vertex-ai-workbench/variables.tf'](modules/vertex-ai-workbench/variables.tf)
+
+    ```
+    variable "machine_type" {
+      type        = string
+      default     = "e2-standard-2"
+      description = "Machine type to use for the notebook instance"
+    }
+    ```
+
+    ['modules/vertex-ai-workbench/main.tf'](modules/vertex-ai-workbench/main.tf)
+
+    ```
+    resource "google_notebooks_instance" "tbd_notebook" {
+      ...
+      machine_type = var.machine_type
+      ...
+    }
+    ```
+    
+    2. Add support for preemptible/spot instances in a Dataproc cluster
+
+    ['modules/dataproc/variables.tf'](modules/dataproc/variables.tf)
+
+    ```
+    variable "preeemptible_worker_count" {
+      type        = number
+      default     = 0
+      description = "Number of preemptible worker nodes"
+    }
+    ```
+
+    ['modules/dataproc/main.tf'](modules/dataproc/main.tf)
+
+    ```
+    preemptible_worker_config {
+      num_instances = var.preeemptible_worker_count
+
+      disk_config {
+        boot_disk_type    = "pd-standard"
+        boot_disk_size_gb = 100
+      }
+
+      preemptibility = "SPOT"
+    }
+    ```
     
     3. Perform additional hardening of Jupyterlab environment, i.e. disable sudo access and enable secure boot
-    
-    ***place the link to the modified file and inserted terraform code***
+
+    ['modules/vertex-ai-workbench/main.tf'](modules/vertex-ai-workbench/main.tf)
+
+    ```
+    metadata = {
+      vmDnsSetting : "GlobalDefault"
+      notebook-disable-root: true
+    }
+    ```
+
+    ```
+    shielded_instance_config {
+      enable_secure_boot          = true
+      enable_vtpm                 = true
+      enable_integrity_monitoring = true
+    }
+    ```
 
     4. (Optional) Get access to Apache Spark WebUI
 
-    ***place the link to the modified file and inserted terraform code***
+    ['modules/dataproc/main.tf'](modules/dataproc/main.tf)
+
+    ```
+    cluster_config {
+      endpoint_config {
+        enable_http_port_access = true
+      }
+      ...
+    }
+    ```
