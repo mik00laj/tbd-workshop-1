@@ -11,17 +11,19 @@ IMPORTANT ❗ ❗ ❗ Please remember to destroy all the resources after each wo
 2. Follow all steps in README.md.
 
 3. Select your project and set budget alerts on 5%, 25%, 50%, 80% of 50$ (in cloud console -> billing -> budget & alerts -> create buget; unclick discounts and promotions&others while creating budget).
-
   ![img.png](doc/figures/discounts.png)
-
+![Budget](https://github.com/user-attachments/assets/3b26cf21-3a85-4848-be58-88b6342b2d55)
+![Budget2](https://github.com/user-attachments/assets/ef72cae5-ba52-473a-a1c5-1dea2bc87d67)
 5. From avaialble Github Actions select and run destroy on main branch.
-   
+   ![Destroy](https://github.com/user-attachments/assets/90356f63-11b0-44c7-a10a-30c9f50d5234)
+
 7. Create new git branch and:
     1. Modify tasks-phase1.md file.
     
     2. Create PR from this branch to **YOUR** master and merge it to make new release. 
     
-    ***place the screenshot from GA after succesfull application of release***
+![PULL REQUEST](https://github.com/user-attachments/assets/267f0371-5705-48c6-8925-d342f90f80e8)
+
 
 
 8. Analyze terraform code. Play with terraform plan, terraform graph to investigate different modules.
