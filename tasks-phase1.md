@@ -2,31 +2,31 @@ IMPORTANT ❗ ❗ ❗ Please remember to destroy all the resources after each wo
   
 ![img.png](doc/figures/destroy.png)
 
-1. Authors:
+1. Authors: ✅
 
    Z2
 
    https://github.com/mik00laj/tbd-workshop-1
    
-2. Follow all steps in README.md.
+2. Follow all steps in README.md. ✅
    
 Zrealizowaliśmy kroki 1–9 opisane w pliku README.md, czego efektem było wydanie pierwszej wersji (release). Kroki 10–11 są przedstawione dalej w tym dokumencie jako zadania 11 i 14, dlatego ich wykonanie zostanie omówione w odpowiednich sekcjach.
 ![PR](https://github.com/user-attachments/assets/75d06944-a74b-42df-bec0-8655f64d7ef4)
 ![PR2](https://github.com/user-attachments/assets/1da0201f-8b0b-4a09-bbec-c7e002a60626)
 
 
-4. Select your project and set budget alerts on 5%, 25%, 50%, 80% of 50$ (in cloud console -> billing -> budget & alerts -> create buget; unclick discounts and promotions&others while creating budget).
+4. Select your project and set budget alerts on 5%, 25%, 50%, 80% of 50$ (in cloud console -> billing -> budget & alerts -> create buget; unclick discounts and promotions&others while creating budget). ✅
 
 ![img.png](doc/figures/discounts.png)
 ![Budget](https://github.com/user-attachments/assets/34103e76-2a54-448c-bf1c-a78d7a661bc0)
 ![Budget2](https://github.com/user-attachments/assets/3d2ff17f-48e6-437a-98ea-a595eb613def)
 
-5. From avaialble Github Actions select and run destroy on main branch.
+5. From avaialble Github Actions select and run destroy on main branch. ✅
    
    Kończąc pierwszą udaną sesję pracy, poprzez GA dokonaliśmy zniszczenia aktualnej infrastruktury.
    ![Destroy](https://github.com/user-attachments/assets/a4a7375e-d0c2-4679-a9c3-389fe96e98b3)
 
-7. Create new git branch and:
+7. Create new git branch and: ✅
     1. Modify tasks-phase1.md file. 
     
     2. Create PR from this branch to **YOUR** master and merge it to make new release.
@@ -36,7 +36,7 @@ Zrealizowaliśmy kroki 1–9 opisane w pliku README.md, czego efektem było wyda
 ![PR4](https://github.com/user-attachments/assets/cddb19ef-3bc4-4201-90eb-3845385264da)
 
 
-8. Analyze terraform code. Play with terraform plan, terraform graph to investigate different modules.
+8. Analyze terraform code. Play with terraform plan, terraform graph to investigate different modules.✅
 
 W katalogu modules znajdują się moduły Terraform,  są to między innymi: composer, data-pipeline, dataproc, dbt_docker_image, gcr, jupyter_docker_image, metastore, vertex-ai-workbench oraz vpc. W szczególności **przeanalizowaliśmy moduł vertex-ai-workbench**, a poniżej przedstawiono wynik wywołania komendy terraform graph.
 
