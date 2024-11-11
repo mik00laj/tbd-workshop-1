@@ -10,23 +10,23 @@ IMPORTANT ❗ ❗ ❗ Please remember to destroy all the resources after each wo
    
 2. Follow all steps in README.md. ✅
    
-Zrealizowaliśmy kroki 1–9 opisane w pliku README.md, czego efektem było wydanie pierwszej wersji (release). Kroki 10–11 są przedstawione dalej w tym dokumencie jako zadania 11 i 14, dlatego ich wykonanie zostanie omówione w odpowiednich sekcjach.
+Zrealizowaliśmy kroki 1–9 opisane w pliku README.md, czego efektem było wydanie pierwszej wersji (release). 
 ![PR](https://github.com/user-attachments/assets/75d06944-a74b-42df-bec0-8655f64d7ef4)
 ![PR2](https://github.com/user-attachments/assets/1da0201f-8b0b-4a09-bbec-c7e002a60626)
 
 
-4. Select your project and set budget alerts on 5%, 25%, 50%, 80% of 50$ (in cloud console -> billing -> budget & alerts -> create buget; unclick discounts and promotions&others while creating budget). ✅
+3. Select your project and set budget alerts on 5%, 25%, 50%, 80% of 50$ (in cloud console -> billing -> budget & alerts -> create buget; unclick discounts and promotions&others while creating budget). ✅
 
 ![img.png](doc/figures/discounts.png)
 ![Budget](https://github.com/user-attachments/assets/34103e76-2a54-448c-bf1c-a78d7a661bc0)
 ![Budget2](https://github.com/user-attachments/assets/3d2ff17f-48e6-437a-98ea-a595eb613def)
 
-5. From avaialble Github Actions select and run destroy on main branch. ✅
+4. From avaialble Github Actions select and run destroy on main branch. ✅
    
    Kończąc pierwszą udaną sesję pracy, poprzez GA dokonaliśmy zniszczenia aktualnej infrastruktury.
    ![Destroy](https://github.com/user-attachments/assets/a4a7375e-d0c2-4679-a9c3-389fe96e98b3)
 
-7. Create new git branch and: ✅
+5. Create new git branch and: ✅
     1. Modify tasks-phase1.md file. 
     
     2. Create PR from this branch to **YOUR** master and merge it to make new release.
@@ -36,7 +36,7 @@ Zrealizowaliśmy kroki 1–9 opisane w pliku README.md, czego efektem było wyda
 ![PR4](https://github.com/user-attachments/assets/cddb19ef-3bc4-4201-90eb-3845385264da)
 
 
-8. Analyze terraform code. Play with terraform plan, terraform graph to investigate different modules.✅
+6. Analyze terraform code. Play with terraform plan, terraform graph to investigate different modules.✅
 
 W katalogu modules znajdują się moduły Terraform,  są to między innymi: composer, data-pipeline, dataproc, dbt_docker_image, gcr, jupyter_docker_image, metastore, vertex-ai-workbench oraz vpc. W szczególności **przeanalizowaliśmy moduł vertex-ai-workbench**, a poniżej przedstawiono wynik wywołania komendy terraform graph.
 
@@ -74,11 +74,11 @@ Skrypt `notebook_post_startup_script.sh` uruchamiany jest po starcie instancji n
 
 
    
-9. Reach YARN UI
+7. Reach YARN UI
    
    ***place the command you used for setting up the tunnel, the port and the screenshot of YARN UI here***
    
-10. Draw an architecture diagram (e.g. in draw.io) that includes:
+8. Draw an architecture diagram (e.g. in draw.io) that includes:
     1. VPC topology with service assignment to subnets
     2. Description of the components of service accounts
     3. List of buckets for disposal
@@ -86,7 +86,7 @@ Skrypt `notebook_post_startup_script.sh` uruchamiany jest po starcie instancji n
   
     ***place your diagram here***
 
-11. Create a new PR and add costs by entering the expected consumption into Infracost
+9. Create a new PR and add costs by entering the expected consumption into Infracost
 For all the resources of type: `google_artifact_registry`, `google_storage_bucket`, `google_service_networking_connection`
 create a sample usage profiles and add it to the Infracost task in CI/CD pipeline. Usage file [example](https://github.com/infracost/infracost/blob/master/infracost-usage-example.yml) 
 
@@ -94,7 +94,7 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
 
    ***place the screenshot from infracost output here***
 
-11. Create a BigQuery dataset and an external table using SQL
+10. Create a BigQuery dataset and an external table using SQL
     
     ***place the code and output here***
    
@@ -105,11 +105,11 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
 
     ***place the screenshot of notebook here***
    
-13. Find and correct the error in spark-job.py
+12. Find and correct the error in spark-job.py
 
     ***describe the cause and how to find the error***
 
-14. Additional tasks using Terraform:
+13. Additional tasks using Terraform: ✅
 
     1. Add support for arbitrary machine types and worker nodes for a Dataproc cluster and JupyterLab instance
 
