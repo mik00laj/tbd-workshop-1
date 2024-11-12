@@ -66,13 +66,6 @@ Skrypt `notebook_post_startup_script.sh` uruchamiany jest po starcie instancji n
 -  Ustawia zmienne środowiskowe dla PySparka (`PYSPARK_SUBMIT_ARGS`), konfiguruje parametry, takie jak liczba executorów Spark, ilość pamięci oraz konektor GCS.
 -  Restartuje kontener i wystawia porty do interakcji z notebookiem (`8080`, `16384`, `16385`, `4040`).
 - Instalacja środowiska kernel PySparka w notebooku, aby użytkownik mógł korzystać z PySparka w Vertex AI Workbench.
-
-
-
-
-
-
-
    
 7. Reach YARN UI
    
