@@ -76,8 +76,15 @@ Skrypt `notebook_post_startup_script.sh` uruchamiany jest po starcie instancji n
    
 7. Reach YARN UI
    
-   ***place the command you used for setting up the tunnel, the port and the screenshot of YARN UI here***
-   
+  W celu połączenia się z YARN UI użyto następującej komendy, która pozwala na utworzenie tunelu przez IAP oraz przekierowanie portów aplikacji:
+  ```
+  > gcloud compute ssh tbd-cluster-m --project=tbd-2024z-2 --zone=europe-west1-d --tunnel-through-iap -- -L 8088:localhost:8088
+  ```
+  Niezbędne było również skonfigurowanie odpowiednich reguł firewall'a dla portów 8088 local i remote oraz zezwolenie na ruch HTTP i HTTPS, aby było możliwe wyświetlenie GUI YARN w przeglądarce na lokalnym hoście.
+
+  Po wpisaniu w przeglądarkę internetową adresu: http://localhost:8088/cluster wyświetla się następujący widok:
+  ![Yarn GUI]("./screenshots/yarn_gui.png")
+
 8. Draw an architecture diagram (e.g. in draw.io) that includes:
     1. VPC topology with service assignment to subnets
     2. Description of the components of service accounts
@@ -96,14 +103,37 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
 
 10. Create a BigQuery dataset and an external table using SQL
     
-    ***place the code and output here***
+    Poniższe polecenie wykorzystano aby stworzyć BigQuery demo dataset:
+    ```
+    CREATE SCHEMA IF NOT EXISTS demo OPTIONS(location = 'europe-west1');
+
+    CREATE OR REPLACE EXTERNAL TABLE demo.shakespeare
+      OPTIONS (
+      
+      format = 'ORC',
+      uris = ['gs://tbd-2024z-2-data/data/shakespeare/*.orc']);
+
+
+    SELECT * FROM demo.shakespeare ORDER BY sum_word_count DESC LIMIT 5;
+    ```
+
+    Niestety, composer z jakiegoś powodu nie stworzył data-daga i przez to nie mieliśmy danych do realizacji tego ćwiczenia.
+    
    
-    ***why does ORC not require a table schema?***
+     ![BigQuery]("./screenshots/big_query.png")
+
+    Format ORC nie wymaga zdefiniowanego z góry schematu tabeli, ponieważ stosuje podejście „schema-on-read”. Oznacza to, że schemat jest określany lub dedukowany dopiero podczas odczytu danych, a nie w momencie ich zapisu. Dzięki temu rozwiązanie jest bardziej elastyczne i szczególnie przydatne w sytuacjach, gdy schemat często się zmienia.
 
   
-12. Start an interactive session from Vertex AI workbench:
+11. Start an interactive session from Vertex AI workbench:
 
-    ***place the screenshot of notebook here***
+    Podobnie jak przy nawiązywaniu połączenia SSH z YARN UI, użyliśmy prawie identycznej komendy do stworzenia tunelu przez IAP. Tym razem, jednak udało się nam to przy zmienieniu portu na 8080 i dodanie analogicznych reguł do firewall'a:
+
+    ```
+    > gcloud compute ssh tbd-2024z-2-notebook --project=tbd-2024z-2 --zone=europe-west1-b --tunnel-through-iap -- -L 8080:localhost:8080
+    ```
+    ![Jupyter notebook]("./screenshots/jupyter_notebook_connection.png")
+
    
 12. Find and correct the error in spark-job.py
 
