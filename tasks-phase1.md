@@ -83,7 +83,7 @@ Skrypt `notebook_post_startup_script.sh` uruchamiany jest po starcie instancji n
   Niezbędne było również skonfigurowanie odpowiednich reguł firewall'a dla portów 8088 local i remote oraz zezwolenie na ruch HTTP i HTTPS, aby było możliwe wyświetlenie GUI YARN w przeglądarce na lokalnym hoście.
 
   Po wpisaniu w przeglądarkę internetową adresu: http://localhost:8088/cluster wyświetla się następujący widok:
-  ![Yarn GUI]("./screenshots/yarn_gui.png")
+  ![Yarn GUI](https://github.com/mik00laj/tbd-workshop-1/blob/phase1/screenshots/yarn_gui.png)
 
 8. Draw an architecture diagram (e.g. in draw.io) that includes:
     1. VPC topology with service assignment to subnets
@@ -120,7 +120,7 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     Niestety, composer z jakiegoś powodu nie stworzył data-daga i przez to nie mieliśmy danych do realizacji tego ćwiczenia.
     
    
-     ![BigQuery]("./screenshots/big_query.png")
+     ![BigQuery](https://github.com/mik00laj/tbd-workshop-1/blob/phase1/screenshots/big_query.png)
 
     Format ORC nie wymaga zdefiniowanego z góry schematu tabeli, ponieważ stosuje podejście „schema-on-read”. Oznacza to, że schemat jest określany lub dedukowany dopiero podczas odczytu danych, a nie w momencie ich zapisu. Dzięki temu rozwiązanie jest bardziej elastyczne i szczególnie przydatne w sytuacjach, gdy schemat często się zmienia.
 
@@ -132,7 +132,7 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     ```
     > gcloud compute ssh tbd-2024z-2-notebook --project=tbd-2024z-2 --zone=europe-west1-b --tunnel-through-iap -- -L 8080:localhost:8080
     ```
-    ![Jupyter notebook]("./screenshots/jupyter_notebook_connection.png")
+    ![Jupyter notebook](https://github.com/mik00laj/tbd-workshop-1/blob/phase1/screenshots/jupyter_notebook_connection.png)
 
    
 12. Find and correct the error in spark-job.py
