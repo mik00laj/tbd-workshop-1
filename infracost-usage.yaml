@@ -1,19 +1,24 @@
-version: 0.1
+version: 0.2
 usage:
   google_artifact_registry.registry:
-    storage_gb: 50
+    storage_gb: 40
 
   google_storage_bucket.tbd_code_bucket:
-    storage_gb: 100
-    monthly_class_a_operations: 1000
-    monthly_class_b_operations: 500
-    monthly_egress_data_gb: 50
+    storage_gb: 80
+    monthly_class_a_operations: 800
+    monthly_class_b_operations: 400
+    monthly_egress_data_gb: 40
 
   google_storage_bucket.tbd_data_bucket:
     storage_gb: 200
     monthly_class_a_operations: 1500
     monthly_class_b_operations: 800
-    monthly_egress_data_gb: 100
+    monthly_egress_data_transfer_gb:
+      same_continent: 38  # Same continent.
+      worldwide: 40     # Worldwide excluding Asia, Australia.
+      asia: 5           # Asia excluding China, but including Hong Kong.
+      china: 2            # China excluding Hong Kong.
+      australia: 15 
 
   google_service_networking_connection.private_vpc_connection:
-    monthly_data_processed_gb: 300
+    monthly_data_processed_gb: 200
