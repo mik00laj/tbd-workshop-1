@@ -76,23 +76,86 @@ Skrypt `notebook_post_startup_script.sh` uruchamiany jest po starcie instancji n
   Niezbędne było również skonfigurowanie odpowiednich reguł firewall'a dla portów 8088 local i remote oraz zezwolenie na ruch HTTP i HTTPS, aby było możliwe wyświetlenie GUI YARN w przeglądarce na lokalnym hoście.
 
   Po wpisaniu w przeglądarkę internetową adresu: http://localhost:8088/cluster wyświetla się następujący widok:
-  ![Yarn GUI](https://github.com/mik00laj/tbd-workshop-1/blob/phase1/screenshots/yarn_gui.png)
+  ![Yarn GUI](screenshots/yarn_gui.png)
 
 8. Draw an architecture diagram (e.g. in draw.io) that includes:
     1. VPC topology with service assignment to subnets
+    ![Topology](screenshots/topology.jpg)
     2. Description of the components of service accounts
+
+        **tbd-2024z-2-data@tbd-2024z-2.iam.gserviceaccount.com:** To konto usługowe, znane jako "tbd-composer-sa", pełni rolę orkiestratora dla środowisk Cloud Composer, klastrów Dataproc oraz powiązanych zadań. Jest odpowiedzialne za zarządzanie i koordynację operacji związanych z danymi w obrębie środowiska.
+
+        **tbd-2024z-2-lab@tbd-2024z-2.iam.gserviceaccount.com:** Określane jako "tbd-terraform", to konto usługowe jest wykorzystywane wyłącznie do działań związanych z Terraform. Umożliwia komunikację i zarządzanie infrastrukturą projektu w Google Cloud z poziomu Terraform, zapewniając płynną integrację i kontrolę zasobów.
+
+        **727404351958-compute@developer.gserviceaccount.com:** To konto usługowe, określone jako "iac", wspiera integrację między GitHub a usługami Google Cloud. Odgrywa kluczową rolę w zarządzaniu tokenami dostępu i zapewnianiu płynnej komunikacji między tymi platformami.
+
+        ![Service_accounts](screenshots/service_accounts.jpg)
+
     3. List of buckets for disposal
+
+        **tbd-2024z-2-state** - Bucket, który przechowuje informacje o infrastrukturze i jej stanie, takie jak pliki Terraform.
+
+        **tbd-2024z-2-data** - Bucket, który przechowuje rzeczywiste dane generowane przez aplikacje (surowe dane, wyniki aplikacji, logi).
+
+        **tbd-2024z-2-conf** - Bucket, który przechowuje pliki konfiguracyjne i skrypty.
+
+        **tbd-2024z-2-code** - Bucket, który przechowuje kod wykonywalny, kod źródłowy oraz biblioteki dla Apache Spark.
+
+        ![Buckets](screenshots/buckets_.jpg)
+
     4. Description of network communication (ports, why it is necessary to specify the host for the driver) of Apache Spark running from Vertex AI Workbech
+
+        0.10.10.2: tbd-cluster-w-1 - Worker
+
+        10.10.10.3: tbd-cluster-w-0 - Worker
+
+        10.10.10.4: tbd-cluster-m - Master
+        
+        10.10.10.5: tbd-2024-2-notebook - Maszyna wirtualna JupyterLab Notebook
+
+        Vertex AI Workbench driver Apache Spark może działać na innej maszynie lub w odrębnym kontenerze niż pozostałe komponenty klastra Spark. Aby zapewnić poprawną komunikację, konieczne jest wskazanie konkretnego hosta dla drivera. Dzięki temu driver Spark wie, do którego klastra przesyłać zadania oraz skąd odbierać przetworzone dane. Określenie hosta umożliwia nawiązywanie stabilnych połączeń między driverem a workerami w klastrze, co jest niezbędne do sprawnego przeprowadzania operacji obliczeniowych.
+
+        Port drivera: 30000 — wykorzystywany do zarządzania komunikacją między driverem a komponentami klastra.
+
+        Block manager: 30001 — służy do przesyłania bloków danych między instancjami w klastrze, zapewniając płynne przekazywanie wyników.
+
+        Port drivera: 30000
+        Block manager: 30001
   
-    ***place your diagram here***
 
 9. Create a new PR and add costs by entering the expected consumption into Infracost
 For all the resources of type: `google_artifact_registry`, `google_storage_bucket`, `google_service_networking_connection`
 create a sample usage profiles and add it to the Infracost task in CI/CD pipeline. Usage file [example](https://github.com/infracost/infracost/blob/master/infracost-usage-example.yml) 
 
-   ***place the expected consumption you entered here***
+   ```
+    version: 0.2
+    usage:
+      google_artifact_registry.registry:
+        storage_gb: 40
 
-   ***place the screenshot from infracost output here***
+      google_storage_bucket.tbd_code_bucket:
+        storage_gb: 80
+        monthly_class_a_operations: 800
+        monthly_class_b_operations: 400
+        monthly_egress_data_gb: 40
+
+      google_storage_bucket.tbd_data_bucket:
+        storage_gb: 200
+        monthly_class_a_operations: 1500
+        monthly_class_b_operations: 800
+        monthly_egress_data_transfer_gb:
+          same_continent: 38  # Same continent.
+          worldwide: 40     # Worldwide excluding Asia, Australia.
+          asia: 5           # Asia excluding China, but including Hong Kong.
+          china: 2            # China excluding Hong Kong.
+          australia: 15 
+
+      google_service_networking_connection.private_vpc_connection:
+        monthly_data_processed_gb: 200
+   ```
+
+   ![Infracost Output](screenshots/infra_cost.png)
+   ![Infracost Output2](screenshots/infra_cost2.png)
 
 10. Create a BigQuery dataset and an external table using SQL
     
@@ -113,7 +176,11 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     Niestety, composer z jakiegoś powodu nie stworzył data-daga i przez to nie mieliśmy danych do realizacji tego ćwiczenia.
     
    
-     ![BigQuery](https://github.com/mik00laj/tbd-workshop-1/blob/phase1/screenshots/big_query.png)
+      ![BigQuery](screenshots/big_query.png)
+
+    Dopiero po realizacji zadania z znalezieniem błędu w pyspark-job.py, możliwe było wygenerowanie demo dataset'u.
+
+      ![BigQuery](screenshots/big_query_success.png)
 
     Format ORC nie wymaga zdefiniowanego z góry schematu tabeli, ponieważ stosuje podejście „schema-on-read”. Oznacza to, że schemat jest określany lub dedukowany dopiero podczas odczytu danych, a nie w momencie ich zapisu. Dzięki temu rozwiązanie jest bardziej elastyczne i szczególnie przydatne w sytuacjach, gdy schemat często się zmienia.
 
@@ -125,12 +192,21 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     ```
     > gcloud compute ssh tbd-2024z-2-notebook --project=tbd-2024z-2 --zone=europe-west1-b --tunnel-through-iap -- -L 8080:localhost:8080
     ```
-    ![Jupyter notebook](https://github.com/mik00laj/tbd-workshop-1/blob/phase1/screenshots/jupyter_notebook_connection.png)
+    ![Jupyter notebook](screenshots/jupyter_notebook_connection.png)
 
    
 12. Find and correct the error in spark-job.py
 
-    ***describe the cause and how to find the error***
+    Błąd polegał na tym, że w skrypcie spark-job.py była zapisana nieprawidłowa nazwa Bucketa. Udało się nam go znaleźć analizując informacje z logów w konsoli Google.
+    ```
+      DATA_BUCKET = "gs://tbd-2025z-9900-data/data/shakespeare/"
+    ```
+
+    Po podmienieniu nazwy wygląda to następująco:
+    ```
+      DATA_BUCKET = "gs://tbd-2024z-2-data/data/shakespeare/"
+    ```
+    Dzięki temu, prawidłowo generuje się demo dataset 'shakespeare' dla zadania z punktu dotyczącego BigQuery.
 
 13. Additional tasks using Terraform: ✅
 
