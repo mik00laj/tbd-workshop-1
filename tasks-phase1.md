@@ -192,7 +192,7 @@ create a sample usage profiles and add it to the Infracost task in CI/CD pipelin
     ```
     > gcloud compute ssh tbd-2024z-2-notebook --project=tbd-2024z-2 --zone=europe-west1-b --tunnel-through-iap -- -L 8080:localhost:8080
     ```
-    ![Jupyter notebook](screenshots/jupyter_notebook_connection.png)
+    ![Jupyter notebook](screenshots/jupyter_notebook_success.png)
 
    
 12. Find and correct the error in spark-job.py
