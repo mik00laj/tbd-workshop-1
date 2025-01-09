@@ -184,7 +184,8 @@ TradeType:
 
 10. Add some 3 more [dbt tests](https://docs.getdbt.com/docs/build/tests) and explain what you are testing.
     Tests are added to /tests/ folder in forked repo https://github.com/mik00laj/tbd-tpc-di/tree/main/tests.
-    ```-- Check if primary key are not null
+    ```
+    -- Check if primary key are not null
     SELECT sk_customer_id
     FROM {{ ref('dim_customer') }}
     WHERE sk_customer_id IS NULL```
@@ -198,7 +199,8 @@ TradeType:
     ```-- Check if 'tax' values are bigger or equal to 0
     SELECT *
     FROM {{ ref('trades') }} 
-    WHERE tax < 0```
+    WHERE tax < 0
+    ```
 
     ![image](https://github.com/user-attachments/assets/9636b62e-5e4e-4000-9b74-91c4770ba17b)
 
