@@ -188,15 +188,15 @@ TradeType:
     -- Check if primary key are not null
     SELECT sk_customer_id
     FROM {{ ref('dim_customer') }}
-    WHERE sk_customer_id IS NULL```
+    WHERE sk_customer_id IS NULL
 
-    ```-- Check if primary key are unique
+    -- Check if primary key are unique
     SELECT sk_account_id, COUNT(*) AS count
     FROM {{ ref('dim_account') }}
     GROUP BY sk_account_id
-    HAVING count > 1```
+    HAVING count > 1
 
-    ```-- Check if 'tax' values are bigger or equal to 0
+    -- Check if 'tax' values are bigger or equal to 0
     SELECT *
     FROM {{ ref('trades') }} 
     WHERE tax < 0
@@ -218,4 +218,5 @@ TradeType:
 
 12. Redeploy infrastructure and check if the DAG finished with no errors:
 
-***The screenshot of Apache Aiflow UI***
+![image](https://github.com/user-attachments/assets/4ba15bad-544c-403c-a99a-ff43fc8f8b9d)
+
