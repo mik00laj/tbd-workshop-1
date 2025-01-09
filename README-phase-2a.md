@@ -50,8 +50,6 @@ the running instance of your Vertex AI Workbench
 
    c)update git clone command to point to ***your fork***.
 
- Changes updated in https://github.com/mik00laj/tbd-workshop-1/blob/master/notebooks/tpc-di-setup.ipynb 
-
 
 7. Access Vertex AI Workbench and run cell by cell notebook `tpc-di-setup.ipynb`.
 
