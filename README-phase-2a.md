@@ -31,7 +31,10 @@ Worth to read:
     b) upload [tpc-di-setup.ipynb](https://github.com/bdg-tbd/tbd-workshop-1/blob/v1.0.36/notebooks/tpc-di-setup.ipynb) to 
 the running instance of your Vertex AI Workbench
 
-5. In `tpc-di-setup.ipynb` modify cell under section ***Clone tbd-tpc-di repo***:
+![image](https://github.com/user-attachments/assets/47a8d870-f7c8-4acf-bc2c-01be18686c2e)
+
+
+6. In `tpc-di-setup.ipynb` modify cell under section ***Clone tbd-tpc-di repo***:
 
    a)first, fork https://github.com/mwiewior/tbd-tpc-di.git to your github organization.
    
@@ -49,7 +52,8 @@ the running instance of your Vertex AI Workbench
 
 
    c)update git clone command to point to ***your fork***.
-
+   
+   Done in 7 c)
 
 7. Access Vertex AI Workbench and run cell by cell notebook `tpc-di-setup.ipynb`.
 
@@ -66,10 +70,14 @@ Our variables are like below:
          git pull
          ```
       replace repo with your fork. Next checkout to 'notebook' branch.
-   I changed this by merging notebook branch to master like in a screenshot in 5 b) point.
-    c) after running first cells your fork of `tbd-tpc-di` repository will be cloned into Vertex AI  enviroment (see git folder).
+   
+     I changed this by merging notebook branch to master like in a screenshot in 5 b) point and changed before 11 point of this instruction.
+   
+   c) after running first cells your fork of `tbd-tpc-di` repository will be cloned into Vertex AI  enviroment (see git folder).
+![image](https://github.com/user-attachments/assets/3d4a9e50-8a2f-410f-9b30-a6f937e7c4a2)
 
-    d) take a look on `git/tbd-tpc-di/profiles.yaml`. This file includes Spark parameters that can be changed if you need to increase the number of executors and
+
+   d) take a look on `git/tbd-tpc-di/profiles.yaml`. This file includes Spark parameters that can be changed if you need to increase the number of executors and
   ```
    server_side_parameters:
        "spark.driver.memory": "2g"
@@ -78,6 +86,8 @@ Our variables are like below:
        "spark.hadoop.hive.metastore.warehouse.dir": "hdfs:///user/hive/warehouse/"
   ```
 
+  It wasn't necessary.
+  
 7. Explore files created by generator and describe them, including format, content, total size.
 
 For each content the generator generate files and audit files in csv format for them. The generator works in batches and final files are loaded in 3 batches and saved in folders represented these batches, in order to Date column, which is visible in audit file, which are also generated for batches and have the same columns like below:
@@ -216,5 +226,6 @@ TradeType:
 
 12. Redeploy infrastructure and check if the DAG finished with no errors:
 
-![image](https://github.com/user-attachments/assets/4ba15bad-544c-403c-a99a-ff43fc8f8b9d)
+![image](https://github.com/user-attachments/assets/5bbfb764-29a8-404b-98fb-b85a68c2bcc4)
+
 
